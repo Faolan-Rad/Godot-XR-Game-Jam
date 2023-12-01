@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Sublimation": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\Faolan\\Desktop\\GoDot\\Godot_v4.1-stable_mono_win64\\Godot_v4.2-stable_mono_win64.exe",
+      "commandLineArgs": "--path ./",
+      "workingDirectory": "C:\\Projects\\Godot-XR-Game-Jam\\Sublimation"
+    }
+  }
+}

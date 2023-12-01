@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sublimation", "Sublimation\Sublimation.csproj", "{8C8CDE9B-5C73-4D76-BB6A-7EAE2C71F837}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C8CDE9B-5C73-4D76-BB6A-7EAE2C71F837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C8CDE9B-5C73-4D76-BB6A-7EAE2C71F837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C8CDE9B-5C73-4D76-BB6A-7EAE2C71F837}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{8C8CDE9B-5C73-4D76-BB6A-7EAE2C71F837}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{8C8CDE9B-5C73-4D76-BB6A-7EAE2C71F837}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{8C8CDE9B-5C73-4D76-BB6A-7EAE2C71F837}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABAD8A87-47CC-4042-AB84-1C58473980FB}
+	EndGlobalSection
+EndGlobal

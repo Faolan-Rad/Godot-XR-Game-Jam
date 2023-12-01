@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://c36ciuuuqds70"]
+
+[ext_resource type="Script" path="res://WebBrowser.cs" id="1_1yx3b"]
+
+[sub_resource type="Environment" id="Environment_l5btg"]
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+adjustment_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hhppa"]
+size = Vector3(1, 1, 0.01)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jadng"]
+lightmap_size_hint = Vector2i(7, 7)
+orientation = 2
+
+[node name="LoadedScene" type="Node3D"]
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+
+[node name="Left" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="Right" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l5btg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.897436, -0.193143, 0.396617, 0, 0.899062, 0.437822, -0.441146, -0.392917, 0.80685, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.8735)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_hhppa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_jadng")
+script = ExtResource("1_1yx3b")
+planeMesh = SubResource("PlaneMesh_jadng")
+boxShape = SubResource("BoxShape3D_hhppa")

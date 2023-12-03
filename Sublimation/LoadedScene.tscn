@@ -1,32 +1,168 @@
-[gd_scene load_steps=5 format=3 uid="uid://c36ciuuuqds70"]
+[gd_scene load_steps=25 format=3 uid="uid://c36ciuuuqds70"]
 
 [ext_resource type="Script" path="res://WebBrowser.cs" id="1_1yx3b"]
+[ext_resource type="Script" path="res://Player.cs" id="1_dgxyx"]
+[ext_resource type="PackedScene" uid="uid://c2xrvi80kiu01" path="res://left_hand.glb" id="2_ufk2p"]
+[ext_resource type="Shader" path="res://HandShader.gdshader" id="3_6vhy8"]
+[ext_resource type="PackedScene" uid="uid://ds22sywbpggvh" path="res://right_hand.glb" id="3_sacet"]
+[ext_resource type="PackedScene" uid="uid://ds76ir1vuas03" path="res://3dmountains.glb" id="3_uwx4k"]
+[ext_resource type="Script" path="res://KeyBoard.cs" id="6_xr66v"]
+[ext_resource type="Texture2D" uid="uid://dnu2h24or35mp" path="res://RhubarbVR2_1149.png" id="8_roaum"]
+
+[sub_resource type="Gradient" id="Gradient_ep5c1"]
+colors = PackedColorArray(0.462745, 0.262745, 0.572549, 1, 1, 0, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qrgcg"]
+gradient = SubResource("Gradient_ep5c1")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.7, 0.3)
+metadata/_snap_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7itv"]
+render_priority = 0
+shader = ExtResource("3_6vhy8")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/wire_color = Color(0, 0, 0, 1)
+shader_parameter/wire_width = 5.0
+shader_parameter/wire_smoothness = 0.01
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kovjr"]
+sky_top_color = Color(0.117647, 0.0235294, 0.117647, 1)
+sky_horizon_color = Color(0.32549, 0.0117647, 0.231373, 1)
+sky_cover_modulate = Color(1, 1, 0.117647, 1)
+ground_bottom_color = Color(0.403922, 0.0705882, 0.231373, 1)
+ground_horizon_color = Color(0.647059, 0.654902, 0.188235, 1)
+
+[sub_resource type="Sky" id="Sky_0ejp8"]
+sky_material = SubResource("ProceduralSkyMaterial_kovjr")
 
 [sub_resource type="Environment" id="Environment_l5btg"]
+background_mode = 2
+sky = SubResource("Sky_0ejp8")
+ambient_light_source = 3
+ambient_light_color = Color(0.941176, 0.258824, 0.568627, 1)
+reflected_light_source = 2
 ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
-adjustment_enabled = true
+fog_light_color = Color(0.952941, 0.129412, 0.596078, 1)
+fog_light_energy = 0.02
+fog_height = -477.48
+fog_height_density = 0.8685
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.001
+volumetric_fog_albedo = Color(1, 0.0666667, 1, 1)
+volumetric_fog_emission = Color(0.843137, 0, 0.588235, 1)
+volumetric_fog_emission_energy = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hhppa"]
 size = Vector3(1, 1, 0.01)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jadng"]
 lightmap_size_hint = Vector2i(7, 7)
+size = Vector2(1, 1)
 orientation = 2
+
+[sub_resource type="FogMaterial" id="FogMaterial_rq8ga"]
+density = 0.016
+albedo = Color(0, 0, 0, 1)
+emission = Color(0.839216, 0, 0.486275, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a6urn"]
+size = Vector3(2.5, 1, 0.01)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_agsdi"]
+viewport_path = NodePath("KeyBoard/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j1ls3"]
+resource_local_to_scene = true
+transparency = 4
+cull_mode = 2
+albedo_texture = SubResource("ViewportTexture_agsdi")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fcutd"]
+lightmap_size_hint = Vector2i(7, 7)
+size = Vector2(2.5, 1)
+orientation = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2fvxq"]
+bg_color = Color(0.101961, 0, 0.137255, 0.960784)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_cyxc1"]
+Panel/styles/panel = SubResource("StyleBoxFlat_2fvxq")
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tipvt"]
 
 [node name="LoadedScene" type="Node3D"]
 
-[node name="XROrigin3D" type="XROrigin3D" parent="."]
+[node name="XROrigin3D" type="XROrigin3D" parent="." node_paths=PackedStringArray("Camera", "Left", "Right", "LeftAim", "RightAim", "LeftRender", "RightRender")]
+world_scale = 2.0
+script = ExtResource("1_dgxyx")
+Camera = NodePath("XRCamera3D")
+Left = NodePath("Left")
+Right = NodePath("Right")
+LeftAim = NodePath("LeftAnim")
+RightAim = NodePath("RightAnim")
+LeftRender = NodePath("LeftVisual")
+RightRender = NodePath("RightVisual")
+
+[node name="LeftVisual" type="Sprite3D" parent="XROrigin3D"]
+pixel_size = 0.001
+billboard = 1
+no_depth_test = true
+fixed_size = true
+render_priority = 127
+texture = SubResource("GradientTexture2D_qrgcg")
+
+[node name="RightVisual" type="Sprite3D" parent="XROrigin3D"]
+pixel_size = 0.001
+billboard = 1
+no_depth_test = true
+fixed_size = true
+render_priority = 127
+texture = SubResource("GradientTexture2D_qrgcg")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="Left" type="XRController3D" parent="XROrigin3D"]
 tracker = &"left_hand"
+pose = &"skeleton"
+
+[node name="left_hand" parent="XROrigin3D/Left" instance=ExtResource("2_ufk2p")]
+
+[node name="vr_glove_left_slim" parent="XROrigin3D/Left/left_hand/Armature_001/Skeleton3D" index="0"]
+material_override = SubResource("ShaderMaterial_w7itv")
+
+[node name="OpenXRHand" type="OpenXRHand" parent="XROrigin3D/Left"]
+hand_skeleton = NodePath("../left_hand/Armature_001/Skeleton3D")
 
 [node name="Right" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
+pose = &"skeleton"
+
+[node name="right_hand" parent="XROrigin3D/Right" instance=ExtResource("3_sacet")]
+
+[node name="vr_glove_right_slim" parent="XROrigin3D/Right/right_hand/Armature/Skeleton3D" index="0"]
+material_override = SubResource("ShaderMaterial_w7itv")
+
+[node name="OpenXRHand" type="OpenXRHand" parent="XROrigin3D/Right"]
+hand = 1
+hand_skeleton = NodePath("../right_hand/Armature/Skeleton3D")
+
+[node name="LeftAnim" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+pose = &"aim"
+
+[node name="RightAnim" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+pose = &"aim"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l5btg")
@@ -34,14 +170,68 @@ environment = SubResource("Environment_l5btg")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.897436, -0.193143, 0.396617, 0, 0.899062, 0.437822, -0.441146, -0.392917, 0.80685, 0, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.8735)
+[node name="Browser" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.43842, -4.50583)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Browser"]
 shape = SubResource("BoxShape3D_hhppa")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Browser" node_paths=PackedStringArray("CollisionShape")]
 mesh = SubResource("PlaneMesh_jadng")
 script = ExtResource("1_1yx3b")
 planeMesh = SubResource("PlaneMesh_jadng")
 boxShape = SubResource("BoxShape3D_hhppa")
+CollisionShape = NodePath("../CollisionShape3D")
+
+[node name="3dmountains" parent="." instance=ExtResource("3_uwx4k")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.326177, 0, -3.73589)
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.660057, 1.85927, 1.7027)
+size = Vector3(711.51, 5.49, 1024)
+material = SubResource("FogMaterial_rq8ga")
+
+[node name="KeyBoard" type="StaticBody3D" parent="." node_paths=PackedStringArray("viewport", "CollisionShape")]
+transform = Transform3D(1, 0, 0, 0, 0.594823, 0.803857, 0, -0.803857, 0.594823, 0, 0.553096, -2.37779)
+script = ExtResource("6_xr66v")
+BoxShape = SubResource("BoxShape3D_a6urn")
+viewport = NodePath("SubViewport")
+CollisionShape = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyBoard"]
+shape = SubResource("BoxShape3D_a6urn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="KeyBoard"]
+material_override = SubResource("StandardMaterial3D_j1ls3")
+mesh = SubResource("PlaneMesh_fcutd")
+
+[node name="SubViewport" type="SubViewport" parent="KeyBoard"]
+transparent_bg = true
+size = Vector2i(1280, 512)
+
+[node name="Control" type="Panel" parent="KeyBoard/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_cyxc1")
+
+[node name="Sprite3D" type="Sprite3D" parent="KeyBoard"]
+transform = Transform3D(1, 0, 0, 0, 0.852567, -0.522618, 0, 0.522618, 0.852567, -1.20691, 0.534643, 0.0355759)
+pixel_size = 0.0001
+texture = ExtResource("8_roaum")
+
+[node name="Label3D" type="Label3D" parent="KeyBoard/Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.359034, 0, 0)
+pixel_size = 0.0008
+alpha_cut = 1
+text = "Thrown together by Rhubarb VR developer"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_tipvt")
+
+[editable path="XROrigin3D/Left/left_hand"]
+[editable path="XROrigin3D/Right/right_hand"]

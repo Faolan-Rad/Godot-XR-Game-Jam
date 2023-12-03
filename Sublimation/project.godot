@@ -13,7 +13,11 @@ config_version=5
 config/name="Sublimation"
 run/main_scene="res://MainScene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.117647, 0.117647, 0.117647, 1)
+boot_splash/show_image=false
+boot_splash/image="res://RhubarbVR2_1149.png"
+boot_splash/fullsize=false
+config/icon="res://image0.png"
 
 [dotnet]
 
